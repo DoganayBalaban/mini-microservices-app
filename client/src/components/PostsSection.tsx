@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import Post from "./Post";
 
 const PostsSection = () => {
-  const [posts, setPosts] = useState<{ id: string; title: string }[]>([]);
+  const [posts, setPosts] = useState<
+    { id: string; title: string; comments: { id: string; content: string }[] }[]
+  >([]);
   const [sortBy, setSortBy] = useState<"id" | "title">("id");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
@@ -11,8 +13,12 @@ const PostsSection = () => {
     const fetchPosts = async () => {
       try {
         const { data } = await axios.get<{
-          [key: string]: { id: string; title: string };
-        }>("http://localhost:4000/posts");
+          [key: string]: {
+            id: string;
+            title: string;
+            comments: { id: string; content: string }[];
+          };
+        }>("http://localhost:4002/posts");
         console.log("API Response:", data);
         // Convert object to array if needed
         if (Array.isArray(data)) {

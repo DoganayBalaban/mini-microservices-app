@@ -2,7 +2,15 @@ import React from "react";
 import CommentCreate from "./CommentCreate";
 import CommentsList from "./CommentsList";
 
-const Post = ({ post }: { post: { id: string; title: string } }) => {
+const Post = ({
+  post,
+}: {
+  post: {
+    id: string;
+    title: string;
+    comments: { id: string; content: string }[];
+  };
+}) => {
   return (
     <tr key={post.id}>
       <td style={{ padding: "8px", border: "1px solid #ddd" }}>{post.id}</td>
@@ -13,7 +21,7 @@ const Post = ({ post }: { post: { id: string; title: string } }) => {
             <CommentCreate postId={post.id} />
           </div>
           <div>
-            <CommentsList postId={post.id} />
+            <CommentsList comments={post.comments} />
           </div>
         </div>
       </td>
