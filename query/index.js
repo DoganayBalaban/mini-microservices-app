@@ -5,24 +5,24 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const posts = {}
+const posts = {};
 
 app.get("/posts", (req, res) => {
-  res.send(posts)
+  res.send(posts);
 });
 
 app.post("/events", (req, res) => {
-  const {type, data} = req.body
-  if (type === 'PostCreated') {
-    const {id, title} = data
-    posts[id] = {id, title, comments:[]}
+  const { type, data } = req.body;
+  if (type === "PostCreated") {
+    const { id, title } = data;
+    posts[id] = { id, title, comments: [] };
   }
-  if (type === 'CommentCreated') {
-    const {id, content, postId} = data
-    const post = posts[postId]
-    post.comments.push({id,content})
+  if (type === "CommentCreated") {
+    const { id, content, postId, status } = data;
+    const post = posts[postId];
+    post.comments.push({ id, content, status });
   }
-  res.send({})
+  res.send({});
 });
 app.listen(4002, () => {
   console.log("Server is running on port 4002");
