@@ -8,7 +8,7 @@ const Post = ({
   post: {
     id: string;
     title: string;
-    comments: { id: string; content: string }[];
+    comments: { id: string; content: string; status: string }[];
   };
 }) => {
   return (
