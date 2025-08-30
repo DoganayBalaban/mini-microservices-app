@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: posts-depl
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: posts
@@ -13,5 +14,18 @@ spec:
     spec:
       containers:
         - name: posts
-          image: post-service:0.0.5
-  replicas: 1
+          image: doganaybalaban/posts
+  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-clusterip-srv
+spec:
+  selector:
+    app: posts
+  ports:
+    - name: posts
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
