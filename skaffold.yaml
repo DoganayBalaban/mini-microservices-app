@@ -1,0 +1,62 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+metadata:
+  name: mini-microservices-app
+build:
+  local:
+    push: false
+  artifacts:
+    - image: doganaybalaban/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.{ts,tsx,js,jsx}"
+            dest: .
+          - src: "public/**/*"
+            dest: .
+    - image: doganaybalaban/posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
+    - image: doganaybalaban/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
+    - image: doganaybalaban/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
+    - image: doganaybalaban/moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
+    - image: doganaybalaban/event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*

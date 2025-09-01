@@ -6,7 +6,7 @@ const App = () => {
   return (
     <div className="container">
       <div>
-        <h1>Create Post</h1>
+        <h1>Create Post!!!</h1>
         <PostCreate />
       </div>
       <div>

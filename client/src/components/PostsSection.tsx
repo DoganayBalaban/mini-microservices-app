@@ -18,7 +18,7 @@ const PostsSection = () => {
             title: string;
             comments: { id: string; content: string }[];
           };
-        }>("http://localhost:4002/posts");
+        }>("http://posts.com/posts");
         console.log("API Response:", data);
         // Convert object to array if needed
         if (Array.isArray(data)) {
